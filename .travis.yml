@@ -1,0 +1,8 @@
+os: linux
+dist: focal
+compiler:
+  - gcc-9.3
+script:
+# Call your build system
+  - cmake . -G "Unix Makefiles"
+  - cmake --build .
