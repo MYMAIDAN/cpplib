@@ -1,3 +1,6 @@
+#include <type_traits>
+#include <typeinfo>
+
 namespace mtl
 {
     /**
@@ -15,6 +18,8 @@ namespace mtl
         private:
         class any_base 
         {
+            public:
+            virtual const std::type_info& getType() = 0;
         };
 
         template<class T>
@@ -25,22 +30,38 @@ namespace mtl
             any_storage(T val) : m_Data(val) 
             {}
             T m_Data;
+
+            const  std::type_info& getType() override
+            {
+                return typeid(m_Data);
+            }
         };
 
         any_base*  m_AnyImp{nullptr};
 
         template<class F>
         friend F any_cast(any& obj);
+
+        template<class F>
+        friend F any_cast(const any& obj);
     };
 
     template<class F>
     F any_cast(any& obj)
     {
-        auto any_obj = static_cast<any::any_storage<F>*>(obj.m_AnyImp);
-        if(any_obj != nullptr)
+        if(obj.m_AnyImp->getType() == typeid(F))
         {
-            return any_obj->m_Data;
+            return static_cast<any::any_storage<F>*>(obj.m_AnyImp)->m_Data;
         }
+        else
+        {
+            
+        }
+    }
+
+    template<class F>
+    F any_cast(const any& obj)
+    {
     }
 
 
