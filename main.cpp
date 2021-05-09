@@ -1,10 +1,17 @@
 #include <iostream>
 #include "any.hpp"
+#include <typeinfo>
 int main()
 {
     std::cout << "hello world" << std::endl;
-    mtl::any myAny = std::string("Hello value");
+    const std::string qwe = "h";
+     const mtl::any myAny = qwe;
     
-    std::cout << "Value:" << mtl::any_cast<std::string>(myAny);
+    std::cout << "Value:" << mtl::any_cast<std::string>(myAny) << std::endl;
+    const int a = 2;
+
+    const std::type_info  &info = typeid(a);
+
+    std::cout << "Type:" << info.name() << std::endl;
     return 0;
 }

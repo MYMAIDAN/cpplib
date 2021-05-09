@@ -13,7 +13,7 @@ namespace mtl
         template<class U>
         any(U val) 
         {
-            m_AnyImp = new any_storage<U>(val);
+            m_AnyImpl = new any_storage<U>(val);
         }
         private:
         class any_base 
@@ -37,31 +37,50 @@ namespace mtl
             }
         };
 
-        any_base*  m_AnyImp{nullptr};
+        any_base*  m_AnyImpl;;
 
         template<class F>
         friend F any_cast(any& obj);
 
         template<class F>
         friend F any_cast(const any& obj);
+
+        template<class F>
+        friend F any_cast( any&& obj);  
     };
 
     template<class F>
     F any_cast(any& obj)
     {
-        if(obj.m_AnyImp->getType() == typeid(F))
+        std::cout << "Reference\n";
+        if(obj.m_AnyImpl->getType() == typeid(F))
         {
-            return static_cast<any::any_storage<F>*>(obj.m_AnyImp)->m_Data;
+            return static_cast<any::any_storage<F>*>(obj.m_AnyImpl)->m_Data;
         }
         else
         {
-            
         }
     }
 
     template<class F>
     F any_cast(const any& obj)
     {
+        std::cout << "Const Reference\n";
+        if(obj.m_AnyImpl->getType() == typeid(F))
+        {
+            return static_cast<any::any_storage<F>*>(obj.m_AnyImpl)->m_Data;
+        }
+    }
+
+    template<class F>
+    F any_cast(any&& obj)
+    {
+        std::cout << "Rvalue\n";
+        if(obj.m_AnyImpl->getType() == typeid(F))
+        {
+            return static_cast<any::any_storage<F>*>(std::move(obj.m_AnyImpl))->m_Data;
+        }
+
     }
 
 
