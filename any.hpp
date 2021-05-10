@@ -46,7 +46,13 @@ namespace mtl
         friend F any_cast(const any& obj);
 
         template<class F>
-        friend F any_cast( any&& obj);  
+        friend F any_cast(any&& obj);  
+
+        template<class F>
+        friend const F* any_cast(const any* obj);
+
+        template<class F>
+        friend F* any_cast(any* obj);
     };
 
     template<class F>
@@ -82,6 +88,34 @@ namespace mtl
         }
 
     }
+
+    template<class F>
+    const F* any_cast(const any* obj)
+    {
+        if(obj->m_AnyImpl->getType() == typeid(F))
+        {
+            return &static_cast<any::any_storage<F>*>(obj->m_AnyImpl)->m_Data;
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+
+    template<class F>
+    F* any_cast(any* obj)
+    {
+        if(obj->m_AnyImpl->getType() == typeid(F))
+        {
+            return &static_cast<any::any_storage<F>*>(obj->m_AnyImpl)->m_Data;
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+
+
 
 
 }
