@@ -4,93 +4,89 @@
 namespace mtl
 {
 /**
- * @brief class any is object which can hold any data type
+ * @brieT class any is object which can hold any data type
  * 
  */
 class any
 {
 public:
-  template<class U>
-  any( U val )
+  template<class T>
+  any( T val )
   {
-    m_AnyImpl = new any_storage<U>( val );
+    mStorage = new StorageIml<T>( val );
   }
 
 private:
-  class any_base
+  class StorageBase
   {
   public:
     virtual const std::type_info& getType() = 0;
   };
 
-  template<class T>
-  class any_storage : public any_base
+  template<class U>
+  class StorageIml : public StorageBase
   {
   public:
-    any_storage( T val ) : m_Data( val ) {}
-    T m_Data;
+    StorageIml( U value ) : mValue( value ) {}
+    U mValue;
 
     const std::type_info& getType() override
     {
-      return typeid( m_Data );
+      return typeid( mValue );
     }
   };
 
-  any_base* m_AnyImpl;
-  ;
+  StorageBase* mStorage;
 
-  template<class F>
-  friend F any_cast( any& obj );
+  template<class T>
+  friend T any_cast( any& obj );
 
-  template<class F>
-  friend F any_cast( const any& obj );
+  template<class T>
+  friend T any_cast( const any& obj );
 
-  template<class F>
-  friend F any_cast( any&& obj );
+  template<class T>
+  friend T any_cast( any&& obj );
 
-  template<class F>
-  friend const F* any_cast( const any* obj );
+  template<class T>
+  friend const T* any_cast( const any* obj );
 
-  template<class F>
-  friend F* any_cast( any* obj );
+  template<class T>
+  friend T* any_cast( any* obj );
 };
 
-template<class F>
-F any_cast( any& obj )
+template<class T>
+T any_cast( any& obj )
 {
-  std::cout << "Reference\n";
-  if( obj.m_AnyImpl->getType() == typeid( F ) )
+  if( obj.mStorage->getType() == typeid( T ) )
   {
-    return static_cast<any::any_storage<F>*>( obj.m_AnyImpl )->m_Data;
+    return static_cast<any::StorageIml<T>*>( obj.mStorage )->mValue;
   }
 }
 
-template<class F>
-F any_cast( const any& obj )
+template<class T>
+T any_cast( const any& obj )
 {
-  std::cout << "Const Reference\n";
-  if( obj.m_AnyImpl->getType() == typeid( F ) )
+  if( obj.mStorage->getType() == typeid( T ) )
   {
-    return static_cast<any::any_storage<F>*>( obj.m_AnyImpl )->m_Data;
+    return static_cast<any::StorageIml<T>*>( obj.mStorage )->mValue;
   }
 }
 
-template<class F>
-F any_cast( any&& obj )
+template<class T>
+T any_cast( any&& obj )
 {
-  std::cout << "Rvalue\n";
-  if( obj.m_AnyImpl->getType() == typeid( F ) )
+  if( obj.mStorage->getType() == typeid( T ) )
   {
-    return static_cast<any::any_storage<F>*>( std::move( obj.m_AnyImpl ) )->m_Data;
+    return static_cast<any::StorageIml<T>*>( std::move( obj.mStorage ) )->mValue;
   }
 }
 
-template<class F>
-const F* any_cast( const any* obj )
+template<class T>
+const T* any_cast( const any* obj )
 {
-  if( obj->m_AnyImpl->getType() == typeid( F ) )
+  if( obj->mStorage->getType() == typeid( T ) )
   {
-    return &static_cast<any::any_storage<F>*>( obj->m_AnyImpl )->m_Data;
+    return &static_cast<any::StorageIml<T>*>( obj->mStorage )->mValue;
   }
   else
   {
@@ -98,17 +94,16 @@ const F* any_cast( const any* obj )
   }
 }
 
-template<class F>
-F* any_cast( any* obj )
+template<class T>
+T* any_cast( any* obj )
 {
-  if( obj->m_AnyImpl->getType() == typeid( F ) )
+  if( obj->mStorage->getType() == typeid( T ) )
   {
-    return &static_cast<any::any_storage<F>*>( obj->m_AnyImpl )->m_Data;
+    return &static_cast<any::StorageIml<T>*>( obj->mStorage )->mValue;
   }
   else
   {
     return nullptr;
   }
 }
-
 } // namespace mtl
