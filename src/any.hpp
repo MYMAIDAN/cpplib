@@ -1,6 +1,8 @@
 #include <type_traits>
 #include <typeinfo>
 
+#include "include\bad_cast.h"
+
 namespace mtl
 {
 /**
@@ -61,6 +63,10 @@ T any_cast( any& obj )
   {
     return static_cast<any::StorageIml<T>*>( obj.mStorage )->mValue;
   }
+  else
+  {
+    throw bad_cast();
+  }
 }
 
 template<class T>
@@ -70,6 +76,10 @@ T any_cast( const any& obj )
   {
     return static_cast<any::StorageIml<T>*>( obj.mStorage )->mValue;
   }
+  else
+  {
+    throw bad_cast();
+  }
 }
 
 template<class T>
@@ -78,6 +88,10 @@ T any_cast( any&& obj )
   if( obj.mStorage->getType() == typeid( T ) )
   {
     return static_cast<any::StorageIml<T>*>( std::move( obj.mStorage ) )->mValue;
+  }
+  else
+  {
+    throw bad_cast();
   }
 }
 
