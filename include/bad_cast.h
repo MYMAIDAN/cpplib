@@ -8,13 +8,13 @@ namespace mtl
 class bad_cast : public std::exception
 {
 public:
-  bad_cast(){}
+  bad_cast() noexcept{}
 
-  bad_cast(const bad_cast&){}
+  bad_cast(const bad_cast&)noexcept{}
 
-  bad_cast& operator=(const bad_cast&) {}
+  bad_cast& operator=(const bad_cast&)noexcept{}
 
-  virtual const char* what() const _NOEXCEPT 
+  virtual const char* what() const noexcept 
   {
     return "Bad Dynamic Cast";
   }
