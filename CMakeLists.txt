@@ -1,8 +1,10 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.10)
 
 project(mtl_cpplib LANGUAGES CXX)
 
-#add_subdirectory(src)
+add_subdirectory(src)
 
-add_executable(call  main.cpp "src/any.hpp")
-target_link_libraries(call mltcpp)
+include_directories(src)
+include_directories(include)
+add_executable(call  main.cpp)
+target_link_libraries(call cpplib)
