@@ -8,7 +8,7 @@ namespace mtl
 class bad_cast : public std::exception
 {
 public:
-  bad_cast() noexcept{}
+  bad_cast() noexcept {}
 
   bad_cast(const bad_cast&)noexcept{}
 

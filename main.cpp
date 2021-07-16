@@ -1,10 +1,11 @@
 #include <iostream>
-#include "any.h"
 #include <typeinfo>
-#include <any>
+#include "optional.h"
 int main()
 {
-    std::cout << "hello world" << std::endl;
+
+    mtl::Optional<void> a = mtl::Optional<void>();
+    /*std::cout << "hello world" << std::endl;
     const std::string qwe = "hello world";
     const mtl::any myAny = qwe;
     
@@ -13,6 +14,6 @@ int main()
 
     const std::type_info  &info = typeid(a);
 
-    std::cout << "Type:" << info.name() << std::endl;
+    std::cout << "Type:" << info.name() << std::endl;*/
     return 0;
 }
