@@ -4,7 +4,9 @@
 int main()
 {
 
-    mtl::Optional<int> a = mtl::Optional<int>();
+    mtl::Optional<int> a = mtl::Optional<int>(5);
+
+
     /*std::cout << "hello world" << std::endl;
     const std::string qwe = "hello world";
     const mtl::any myAny = qwe;

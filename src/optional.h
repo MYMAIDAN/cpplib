@@ -6,21 +6,21 @@ class Optional
 {
 public:
     Optional() = default;
-    Optional( T data ) : mData( new T(data) ),isSome(true)
+    Optional( T data ) : mData( data ),isValuePresent(true)
     {}
 
-    bool isSome() const;
+    bool isSome() const
     {
-        return isSome;
+        return isValuePresent;
     }
 
     T value()
     {
-        return *mData;
+        return mData;
     }
 private:
-    T * mData{nullptr};
-    bool isSome{false};
+    T mData;
+    bool isValuePresent{false};
 };
 using None = Optional<void>();
 }
