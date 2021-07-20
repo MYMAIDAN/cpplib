@@ -5,6 +5,12 @@ int main()
 {
 
     mtl::Optional<int> a = mtl::Optional<int>(5);
+    int d = 3;
+    auto e = Some(d);
+
+    std::cout << "is some: " << e.isSome();
+
+    std::cout << "Value : " << e.value(); 
 
 
     /*std::cout << "hello world" << std::endl;

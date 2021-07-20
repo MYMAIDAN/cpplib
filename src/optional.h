@@ -1,6 +1,8 @@
 
 namespace mtl
 {
+
+#define Some(val) mtl::Optional<decltype(val)>(val)
 template <class T>
 class Optional 
 {
@@ -10,6 +12,11 @@ public:
     {}
 
     bool isSome() const
+    {
+        return isValuePresent;
+    }
+
+    bool isNone() const
     {
         return isValuePresent;
     }
