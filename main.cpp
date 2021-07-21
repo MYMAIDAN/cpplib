@@ -4,13 +4,17 @@
 int main()
 {
 
-    mtl::Optional<int> a = mtl::Optional<int>(5);
+    mtl::Optional<double> a = mtl::Optional<double>(5);
     int d = 3;
-    auto e = Some(d);
+    auto e = Some(3.3);
 
     std::cout << "is some: " << e.isSome();
 
     std::cout << "Value : " << e.value(); 
+
+    mtl::Optional<double> qew = e;
+
+    e = a;
 
 
     /*std::cout << "hello world" << std::endl;

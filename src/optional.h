@@ -1,3 +1,4 @@
+#include <typeinfo>
 
 namespace mtl
 {
@@ -10,6 +11,23 @@ public:
     Optional() = default;
     Optional( T data ) : mData( data ),isValuePresent(true)
     {}
+
+    template<class U>
+    explicit Optional(const Optional<U>& other)
+    {
+        this->mData = other.mData;
+    }
+
+    template<class U>
+    Optional& operator=(const Optional<T>& other)
+    {
+        return this->mData = other.mData;
+    }
+
+    bool operator<(const Optional& other)
+    {
+        return *this < other;
+    }
 
     bool isSome() const
     {
@@ -24,6 +42,10 @@ public:
     T value()
     {
         return mData;
+    }
+
+    std::string_view type() const
+    {
     }
 private:
     T mData;
