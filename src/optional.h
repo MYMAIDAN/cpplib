@@ -19,14 +19,24 @@ public:
     }
 
     template<class U>
-    Optional& operator=(const Optional<T>& other)
+    Optional& operator=(const Optional<U>& other)
     {
         return this->mData = other.mData;
     }
 
-    bool operator<(const Optional& other)
+    bool operator<(const Optional<T>& other)
     {
-        return *this < other;
+        return this->mData < other.mData;
+    }
+
+    bool operator>(const Optional<T>& other)
+    {
+        return this->mData > other.mData;
+    }
+
+    bool operator==(const Optional<T>& other)
+    {
+        return this->mData == other.mData;
     }
 
     bool isSome() const
