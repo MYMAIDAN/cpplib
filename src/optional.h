@@ -39,6 +39,11 @@ public:
         return this->mData == other.mData;
     }
 
+    bool operator!=(const Optional<T>& other)
+    {
+        return this->mData != other.mData;
+    }
+
     bool isSome() const
     {
         return isValuePresent;
