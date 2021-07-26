@@ -1,4 +1,5 @@
 #include <typeinfo>
+#include <string_view>
 
 namespace mtl
 {
@@ -54,13 +55,14 @@ public:
         return isValuePresent;
     }
 
-    T value()
+    T value() const
     {
         return mData;
     }
 
     std::string_view type() const
     {
+        return typeid(mData).name();
     }
 private:
     T mData;
