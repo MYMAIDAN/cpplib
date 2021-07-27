@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(../include)
 
-set(SOURCES_FILES any.cpp ../include/bad_cast.h optional.h)
+set(SOURCES_FILES any.cpp ../include/bad_cast.h optional.h shared_ptr.h)
 
 add_library(cpplib STATIC ${SOURCES_FILES})
