@@ -22,5 +22,19 @@ public:
         dataPtr = new SharedObject<T>();
         dataPtr->objectPtr = objPtr;
     }
+
+    shared_ptr(const shared_ptr<T>& obj)
+    {
+        static_assert(obj.dataPtr != nullptr);
+        dataPtr = obj.dataPtr;
+        obj.dataPtr->strongCounter++;
+        
+    }
+    shared_ptr<T>& operator=(const shared_ptr<T>& obj)
+    {
+        static_assert(obj.dataPtr != nullptr);
+        dataPtr = obj.dataPtr;
+        obj.dataPtr->strongCounter++;
+    }
 };
 }
