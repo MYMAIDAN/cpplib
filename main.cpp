@@ -1,6 +1,16 @@
 #include <iostream>
 #include <typeinfo>
 #include "optional.h"
+#include "shared_ptr.h"
+
+class A
+{
+    public:
+    A()
+    {
+        std::cout << "Hello";
+    }
+};
 int main()
 {
 
@@ -15,6 +25,9 @@ int main()
     mtl::Optional<double> qew = e;
 
     e = a;
+    
+    mtl::shared_ptr<A> ob = mtl::make_shared<A>();
+
 
     /*std::cout << "hello world" << std::endl;
     const std::string qwe = "hello world";
