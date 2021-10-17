@@ -15,7 +15,6 @@ class shared_ptr
 {
 private:
     SharedObject<T>* dataPtr;
-
     template<typename U, typename ...Args>
     friend shared_ptr<U> make_shared(Args ... args);
 public:
@@ -40,6 +39,19 @@ public:
         static_assert(obj.dataPtr != nullptr);
         dataPtr = obj.dataPtr;
         obj.dataPtr->strongCounter++;
+    }
+
+    virtual ~shared_ptr<T>()
+    {
+        dataPtr->strongCounter--;
+        if( dataPtr->strongCounter <= 0 )
+        {
+            delete dataPtr->objectPtr;
+            if(dataPtr->weekCounter <= 0)
+            {
+                delete dataPtr;
+            }
+        }
     }
 
 };
